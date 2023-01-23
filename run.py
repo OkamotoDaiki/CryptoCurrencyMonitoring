@@ -41,6 +41,7 @@ def Simulation_Animation(raw_data, parameter, save_fpath, symbol):
     mode = parameter["mode"]
     dt = parameter["dt"]
     length_pred = parameter["length_pred"]
+    ylabel_name = symbol + "-USD"
 
     N = len(raw_data)
     if N >= length_pred:
@@ -55,6 +56,9 @@ def Simulation_Animation(raw_data, parameter, save_fpath, symbol):
             buy_points, sell_points = signal.argrelmin(np.array(y_pred))[0], extremum_obj.squeeze_points(extremum_obj.get_rise_inflection_points())
             x_np_pred, y_np_pred = np.array(x_pred), np.array(y_pred)
             plt.figure(figsize=(16,9), dpi=120)
+            plt.rcParams["font.size"] = 18
+            plt.xlabel("day")
+            plt.ylabel(ylabel_name)
             plt.plot(x_raw, raw_data, label="data")
             plt.plot(x_pred, y_pred, label="predict")
             plt.vlines(x_raw[-1], min(raw_data), max(raw_data), color="orange", linestyle="dashed", label="now")
@@ -88,28 +92,28 @@ def job():
         fpath_btc = "data/btc_day.csv"
         get_data(symbol_btc, start_date, end_date, fpath_btc)
         save_fpath = "./Graph_btc/"
-        symbol_fname = "btc"
         df = pd.read_csv(fpath_btc)
         raw_data = df[extract_row].interpolate()
-        btc_save_fpath = Simulation_Animation(raw_data, parameter, save_fpath, symbol_fname) #BTC
-        btc_p = subprocess.Popen(['see', btc_save_fpath])
+        btc_save_fpath = Simulation_Animation(raw_data, parameter, save_fpath, symbol) #BTC
+        cmd = ["xli", btc_save_fpath]
+        btc_p = subprocess.Popen(cmd)
         """画像ウインドウを閉じる"""
         time.sleep(sleep_time)
-        btc_p.kill()
+        btc_p.terminate()
     elif symbol == "eth" or symbol == "ETH":
         """eth"""
         symbol_eth = "ETH-USD"
         save_fpath = "./Graph_eth/"
-        symbol_fname = "eth"
         fpath_eth = "data/eth_day.csv"
         get_data(symbol_eth, start_date, end_date, fpath_eth)
         df = pd.read_csv(fpath_eth)
         raw_data = df[extract_row].interpolate()
-        eth_save_fpath = Simulation_Animation(raw_data, parameter, save_fpath, symbol_fname) #ETH
-        eth_p = subprocess.Popen(['see', eth_save_fpath])
+        eth_save_fpath = Simulation_Animation(raw_data, parameter, save_fpath, symbol) #ETH
+        cmd = ["xli", eth_save_fpath]
+        eth_p = subprocess.Popen(cmd)
         """画像ウインドウを閉じる"""
         time.sleep(sleep_time)
-        eth_p.kill()
+        eth_p.terminate()
     else:
         print("Error: symbol string is wrong.")
         sys.exit()
