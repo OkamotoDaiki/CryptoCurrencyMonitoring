@@ -15,8 +15,7 @@ warnings.simplefilter("ignore")
 
 def get_data(symbol, start_date, end_date, fpath):
     """
-    仮想通貨の価格データを取得する
-    get cryptocurrency data.
+    仮想通貨の価格データを取得する。
 
     Attributes:
         symbol: BTC-USD or ETH-USD
@@ -31,8 +30,7 @@ def get_data(symbol, start_date, end_date, fpath):
 
 def Simulation_Animation(raw_data, save_fpath, symbol):
     """
-    アニメーションの作成
-    Generate animation.
+    グラフの作成。
     """
     parameter = json.load(open("./parameter.json"))
     length_pred = parameter["length_pred"]
