@@ -40,13 +40,13 @@ def Simulation_Animation(raw_data, save_fpath, symbol):
 
     N = len(raw_data)
     if N >= length_pred:
-        """predict data"""
+        """プロットされるデータ、予測データ、売買ポイント"""
         x = np.linspace(0, len(raw_data)-1, len(raw_data))
         plotted_data = np.array(PlottedData.get_plotted_data(raw_data))
         x_pred, y_pred = PredictData.predict_algorithm(x, plotted_data)
         x_np_pred, y_np_pred = np.array(x_pred), np.array(y_pred)
         buy_points, sell_points = BuySellPoint.get_buy_points(y_pred), BuySellPoint.get_sell_points(y_pred)
-        """plot"""
+        """プロット"""
         plt.figure(figsize=(16,9), dpi=120)
         plt.rcParams["font.size"] = 18
         plt.xlabel("day")
@@ -82,13 +82,14 @@ def job():
         fpath_btc = "data/btc_day.csv"
         get_data(symbol_btc, start_date, end_date, fpath_btc)
         save_fpath = "./Graph_btc/"
-        """ディレクトリの保存"""
+        """ディレクトリの生成"""
         try:
             os.mkdir(save_fpath)
         except FileExistsError:
             pass
         df = pd.read_csv(fpath_btc)
         raw_data = df[extract_row].interpolate()
+        """シミュレーション"""
         btc_save_fpath = Simulation_Animation(raw_data, save_fpath, symbol) #BTC
         cmd = ["xli", btc_save_fpath]
         btc_p = subprocess.Popen(cmd)
@@ -101,12 +102,14 @@ def job():
         fpath_eth = "data/eth_day.csv"
         get_data(symbol_eth, start_date, end_date, fpath_eth)
         save_fpath = "./Graph_eth/"
+        """ディレクトリの生成"""
         try:
             os.mkdir(save_fpath)
         except FileExistsError:
             pass
         df = pd.read_csv(fpath_eth)
         raw_data = df[extract_row].interpolate()
+        """シミュレーション"""
         eth_save_fpath = Simulation_Animation(raw_data, save_fpath, symbol) #ETH
         cmd = ["xli", eth_save_fpath]
         eth_p = subprocess.Popen(cmd)
