@@ -69,7 +69,6 @@ def Simulation_Animation(raw_data, save_fpath, symbol):
 def job():
     delay = 120
     sleep_time = 24 * 60 * 60 - delay
-    sleep_time = 10 #TEST
     extract_row = "high"
     start_date = "2017-01-01-00-00"
     dt_now = datetime.datetime.now()
