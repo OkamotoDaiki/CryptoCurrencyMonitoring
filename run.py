@@ -9,6 +9,7 @@ from script import PredictData, BuySellPoint, PlottedData
 import numpy as np
 import subprocess
 import sys
+import os
 import warnings
 warnings.simplefilter("ignore")
 
@@ -81,6 +82,11 @@ def job():
         fpath_btc = "data/btc_day.csv"
         get_data(symbol_btc, start_date, end_date, fpath_btc)
         save_fpath = "./Graph_btc/"
+        """ディレクトリの保存"""
+        try:
+            os.mkdir(save_fpath)
+        except FileExistsError:
+            pass
         df = pd.read_csv(fpath_btc)
         raw_data = df[extract_row].interpolate()
         btc_save_fpath = Simulation_Animation(raw_data, save_fpath, symbol) #BTC
@@ -92,9 +98,13 @@ def job():
     elif symbol == "eth" or symbol == "ETH":
         """eth"""
         symbol_eth = "ETH-USD"
-        save_fpath = "./Graph_eth/"
         fpath_eth = "data/eth_day.csv"
         get_data(symbol_eth, start_date, end_date, fpath_eth)
+        save_fpath = "./Graph_eth/"
+        try:
+            os.mkdir(save_fpath)
+        except FileExistsError:
+            pass
         df = pd.read_csv(fpath_eth)
         raw_data = df[extract_row].interpolate()
         eth_save_fpath = Simulation_Animation(raw_data, save_fpath, symbol) #ETH
