@@ -2,7 +2,7 @@
  
 Historic_Cryptoのモジュールから仮想通貨の価格データを取得し、売買ポイントを予測する。
 
-![graph_2217_BTC](https://user-images.githubusercontent.com/49944765/215044025-c04b9b74-13fe-4871-a2e6-877d63c97fde.png)
+![image-min](https://user-images.githubusercontent.com/49944765/215109759-fee2651d-5ff8-49ae-b96a-ade72ba1e83a.gif)
 
 青色のデータがビットコインの生データ(今回は高値)、オレンジ色の線が売買ポイントをプロットするためのグラフ。オレンジ色の縦破線が現在日時である。
 
