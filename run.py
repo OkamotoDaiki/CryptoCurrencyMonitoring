@@ -31,6 +31,14 @@ def get_data(symbol, start_date, end_date, fpath):
 def Simulation_Animation(raw_data, save_fpath, symbol):
     """
     グラフの作成。
+
+    Attributes:
+        raw_data: raw data.
+        save_fpath: file path to save.
+        symbol: cryptocurrency stock
+
+    returns:
+        save_img_fpath: image file path to save.
     """
     parameter = json.load(open("./parameter.json"))
     length_pred = parameter["length_pred"]
